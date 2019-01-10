@@ -8,7 +8,7 @@
 
     <property name="fork"                value="true"/>
     
-    <target name="default" depends="compile,run.actualschema" />
+    <target name="default" depends="run.metaschema,run.actualschema" />
     <target name="compile">
 	<echo message="Compile all java files"/>
 	<javac srcdir="." destdir="." debug="on" verbose="${javac.verbose}"
@@ -25,7 +25,7 @@
 	</javac>
     </target>
 
-    <target name="run.metaschema">
+    <target name="run.metaschema" depends="compile">
 	<echo message="Run MetaSchemaTest"/>
         <java classname="MetaSchemaTest" fork="${fork}">
              <classpath>
@@ -40,7 +40,7 @@
         </java>
     </target>
 
-    <target name="run.actualschema">
+    <target name="run.actualschema" depends="compile">
 	<echo message="Run ObjectTest on abox.json"/>
         <java classname="ObjectTest" fork="${fork}">
              <classpath>
