@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="JSON schema" default="default" basedir=".">
+    <description>Builds, tests, and runs the X3D JSON schema project.</description>
+	
+    <property name="javac.verbose"            value="true"/>
+
+    <property environment="env"/>
+
+    <property name="fork"                value="true"/>
+    
+    <target name="default" depends="compile,run.actualschema" />
+    <target name="compile">
+	<echo message="Compile all java files"/>
+	<javac srcdir="." destdir="." debug="on" verbose="${javac.verbose}"
+		includeantruntime="false" fork="${fork}">
+             <classpath>
+		<pathelement location="google-collections-1.0.jar"/>
+		<pathelement location="handy-uri-templates-2.1.6.jar"/>
+		<pathelement location="json-20180130.jar"/>
+		<pathelement location="org.everit.json.schema-1.10.0.jar"/>
+		<pathelement location="re2j-1.1.jar"/>
+                <pathelement location=""/>
+                <pathelement path="."/>
+             </classpath>
+	</javac>
+    </target>
+
+    <target name="run.metaschema">
+	<echo message="Run MetaSchemaTest"/>
+        <java classname="MetaSchemaTest" fork="${fork}">
+             <classpath>
+		<pathelement location="google-collections-1.0.jar"/>
+		<pathelement location="handy-uri-templates-2.1.6.jar"/>
+		<pathelement location="json-20180130.jar"/>
+		<pathelement location="org.everit.json.schema-1.10.0.jar"/>
+		<pathelement location="re2j-1.1.jar"/>
+                <pathelement location=""/>
+                <pathelement path="."/>
+             </classpath>
+        </java>
+    </target>
+
+    <target name="run.actualschema">
+	<echo message="Run ObjectTest on abox.json"/>
+        <java classname="ObjectTest" fork="${fork}">
+             <classpath>
+		<pathelement location="google-collections-1.0.jar"/>
+		<pathelement location="handy-uri-templates-2.1.6.jar"/>
+		<pathelement location="json-20180130.jar"/>
+		<pathelement location="org.everit.json.schema-1.10.0.jar"/>
+		<pathelement location="re2j-1.1.jar"/>
+                <pathelement location=""/>
+                <pathelement path="."/>
+             </classpath>
+	     <arg value="abox.json"/>
+        </java>
+    </target>
+</project>
